@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.1) 
-project(gtest_memory_leak_detector) 
+project(gtest_mem) 
 enable_testing()
 
 add_definitions(-DUNICODE -D_UNICODE)
@@ -14,8 +14,8 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /MT")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL} /MT")
 
-add_library(gtest_mld_main gtest_mld_main.cpp) 
+add_library(gtest_mem_main gtest_mem_main.cpp) 
 
-add_executable(gtest_mld_test test/fixture.cpp) 
-target_link_libraries(gtest_mld_test gtest.lib gtest_mld_main)
-add_test(gtest_mld_test gtest_mld_test)
+add_executable(gtest_mem_test test/fixture.cpp) 
+target_link_libraries(gtest_mem_test gtest.lib gtest_mem_main)
+add_test(gtest_mem_test gtest_mem_test)
