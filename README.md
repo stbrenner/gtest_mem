@@ -1,7 +1,7 @@
 gtest_mem
 =========
 
-Memory leak detector for Google Test.
+Memory leak detector for Google Test on Windows.
 
 How to use
 ----------
