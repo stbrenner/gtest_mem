@@ -10,4 +10,4 @@ Just include `gtest_mem_main.cpp` into your test project. This file aleady conta
 
 Example
 -------
-![Screenshot](http://www.stephan-brenner.com/blog/wp-content/uploads/2013/07/gtest_mem.png)
+![Screenshot](/screenshot.png?raw=true)
