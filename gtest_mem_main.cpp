@@ -1,6 +1,6 @@
 /**
  * @file
- * @copyright (c) 2013 Stephan Brenner
+ * @copyright (c) 2016 Stephan Brenner, Moritz 'Morty' Strübe
  * @license   This project is released under the MIT License.
  *
  * This file implements a main() function for Google Test that runs all tests
@@ -8,11 +8,13 @@
  */
 
 #include <iostream>
-#include <crtdbg.h>
 #include <gtest/gtest.h>
 
 using namespace std;
 using namespace testing;
+
+#ifdef _MSC_VER
+#include <crtdbg.h>
 
 namespace testing
 {
@@ -43,6 +45,42 @@ namespace testing
 #endif // _DEBUG
   };
 }
+
+#elif __GNUC__
+#include <malloc.h>
+
+namespace testing
+{
+  class MemoryLeakDetector: public EmptyTestEventListener {
+
+  public:
+  #ifdef _DEBUG
+    virtual void OnTestStart(const TestInfo&) {
+      struct mallinfo mi;
+      mi = mallinfo();
+      memusage = mi.uordblks;
+    }
+
+    virtual void OnTestEnd(const TestInfo& test_info) {
+      if (test_info.result()->Passed()) {
+        struct mallinfo mi;
+        mi = mallinfo();
+        int diffResult =  mi.uordblks  - memusage ;
+        if (diffResult) {
+          FAIL()<<"Memory leak of " << diffResult << " byte(s) detected.";
+        }
+      }
+    }
+
+  private:
+    int memusage;
+  #endif // _DEBUG
+  };
+}
+
+#else
+#error No support for your system
+#endif
 
 GTEST_API_ int main(int argc, char **argv)
 {
