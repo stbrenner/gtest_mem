@@ -6,7 +6,7 @@
  * This file contains test cases for the gtest_memory_leak_detector.
  */
 
-#include <crtdbg.h>
+#include <malloc.h>
 #include <gtest/gtest.h>
 
 TEST(MemCheck, MemoryLeak)
